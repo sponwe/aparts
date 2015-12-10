@@ -1,0 +1,6 @@
+br/com/tomvieira/aparts/mbeans/EmpreendimentoMB.class
+br/com/tomvieira/aparts/ejb/BaseManager.class
+br/com/tomvieira/aparts/ejb/BusinessException.class
+br/com/tomvieira/aparts/ejb/EmpreendimentoManager.class
+br/com/tomvieira/aparts/model/Empreendimento_.class
+br/com/tomvieira/aparts/model/Empreendimento.class
