@@ -31,26 +31,35 @@
             <p:column headerText="Nome" sortBy="#{emp.nome}" filterBy="#{emp.nome}">
                 <h:outputText value="#{emp.nome}"/>
             </p:column>
-            <p:column headerText="Endereço" sortBy="#{emp.nome}" filterBy="#{emp.nome}">
-                <h:outputText value="#{emp.nome}"/>
+            <p:column headerText="Endereço" sortBy="#{emp.endereco}" filterBy="#{emp.endereco}">
+                <h:outputText value="#{emp.endereco}"/>
             </p:column>
-            <p:column headerText="Zona" sortBy="#{emp.nome}" filterBy="#{emp.nome}">
-                <h:outputText value="#{emp.nome}"/>
+            <p:column headerText="Zona" sortBy="#{emp.zona}" filterBy="#{emp.zona}">
+                <h:outputText value="#{emp.zona}"/>
             </p:column>
-            <p:column headerText="Preço" sortBy="#{emp.nome}" filterBy="#{emp.nome}">
-                <h:outputText value="#{emp.nome}"/>
+            <p:column headerText="Preço" sortBy="#{emp.preco}" filterBy="#{emp.preco}">
+                <h:outputText value="#{emp.preco}"/>
             </p:column>
-            <p:column headerText="M&sup2;" sortBy="#{emp.nome}" filterBy="#{emp.nome}">
-                <h:outputText value="#{emp.nome}"/>
+            <p:column headerText="M&sup2;" sortBy="#{emp.metragem}" filterBy="#{emp.metragem}">
+                <h:outputText value="#{emp.metragem}"/>
             </p:column>
-            <p:column headerText="Nome" sortBy="#{emp.nome}" filterBy="#{emp.nome}">
-                <h:outputText value="#{emp.nome}"/>
+            <p:column headerText="Corretor" sortBy="#{emp.corretor}" filterBy="#{emp.corretor}">
+                <h:outputText value="#{emp.corretor}"/>
             </p:column>
-            <p:column headerText="Nome" sortBy="#{emp.nome}" filterBy="#{emp.nome}">
-                <h:outputText value="#{emp.nome}"/>
+            <p:column headerText="Construtora" sortBy="#{emp.construtora}" filterBy="#{emp.construtora}">
+                <h:outputText value="#{emp.construtora}"/>
             </p:column>
-            <p:column headerText="Nome" sortBy="#{emp.nome}" filterBy="#{emp.nome}">
-                <h:outputText value="#{emp.nome}"/>
+            <p:column headerText="Custo/M&sup2;" sortBy="#{emp.custoMetroQuadrado}" filterBy="#{emp.custoMetroQuadrado}">
+                <h:outputText value="#{emp.custoMetroQuadrado}"/>
+            </p:column>
+            <p:column headerText="Vagas" sortBy="#{emp.numeroDeVagas}" filterBy="#{emp.numeroDeVagas}">
+                <h:outputText value="#{emp.numeroDeVagas}"/>
+            </p:column>
+            <p:column headerText="Tipo vagas" sortBy="#{emp.tipoVagas}" filterBy="#{emp.tipoVagas}">
+                <h:outputText value="#{emp.tipoVagas}"/>
+            </p:column>
+            <p:column headerText="Observação" sortBy="#{emp.observacao}" filterBy="#{emp.observacao}">
+                <h:outputText value="#{emp.observacao}"/>
             </p:column>
         </p:dataTable>
     </h:body>
