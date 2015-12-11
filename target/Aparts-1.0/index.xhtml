@@ -2,57 +2,91 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Lista Empreendimentos</title>
         <link href="resources/styles.css" rel="stylesheet" type="text/css"/>
     </h:head>
     <h:body>
-        <p:fieldset legend="Cadastro de empreendimento">
-            <h:panelGrid columns="2">
-                <h:outputLabel value="Nome:" />
-                <h:outputLabel value="Valor:" />
-                <h:outputLabel value="" />
-                <h:outputLabel value="" />
-                <h:outputLabel value="" />
-                <h:outputLabel value="" />
-                <h:outputLabel value="" />
-                <h:outputLabel value="" />
-                <h:outputLabel value="" />
-                <h:outputLabel value="" />
-                <h:outputLabel value="" />
-                <h:outputLabel value="" />
-            </h:panelGrid>
-            <h:commandButton value="Salvar"/>
-        </p:fieldset>
-        <p:dataTable value="#{empreendimentoMB.empreendimentos}" var="emp" 
-                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                     rowsPerPageTemplate="10,20,50" paginator="true">
-            <p:column headerText="Nome" sortBy="#{emp.nome}" filterBy="#{emp.nome}">
-                <h:outputText value="#{emp.nome}"/>
-            </p:column>
-            <p:column headerText="Endereço" sortBy="#{emp.nome}" filterBy="#{emp.nome}">
-                <h:outputText value="#{emp.nome}"/>
-            </p:column>
-            <p:column headerText="Zona" sortBy="#{emp.nome}" filterBy="#{emp.nome}">
-                <h:outputText value="#{emp.nome}"/>
-            </p:column>
-            <p:column headerText="Preço" sortBy="#{emp.nome}" filterBy="#{emp.nome}">
-                <h:outputText value="#{emp.nome}"/>
-            </p:column>
-            <p:column headerText="M&sup2;" sortBy="#{emp.nome}" filterBy="#{emp.nome}">
-                <h:outputText value="#{emp.nome}"/>
-            </p:column>
-            <p:column headerText="Nome" sortBy="#{emp.nome}" filterBy="#{emp.nome}">
-                <h:outputText value="#{emp.nome}"/>
-            </p:column>
-            <p:column headerText="Nome" sortBy="#{emp.nome}" filterBy="#{emp.nome}">
-                <h:outputText value="#{emp.nome}"/>
-            </p:column>
-            <p:column headerText="Nome" sortBy="#{emp.nome}" filterBy="#{emp.nome}">
-                <h:outputText value="#{emp.nome}"/>
-            </p:column>
-        </p:dataTable>
+        <h:form id="frm">
+            <h:messages id="messages"/>
+            <p:fieldset legend="Cadastro de empreendimento">
+                <h:panelGrid columns="2" id="pnlCadastro">
+                    <h:outputLabel value="Nome:" />     
+                    <p:inputText value="#{empreendimentoMB.empreendimento.nome}"/>
+                    <h:outputLabel value="Endereço" />
+                    <p:inputText value="#{empreendimentoMB.empreendimento.endereco}"/>
+                    <h:outputLabel value="Preço:" />
+                    <p:inputText value="#{empreendimentoMB.empreendimento.preco}"/>
+                    <h:outputLabel value="Zona" />
+                    <h:selectOneMenu value="#{empreendimentoMB.empreendimento.zona}">
+                        <f:selectItem itemLabel="Selecione" itemValue=""/>
+                        <f:selectItem itemLabel="Zona Norte" itemValue="Zona Norte"/>
+                        <f:selectItem itemLabel="Zona Sul" itemValue="Zona Sul"/>
+                        <f:selectItem itemLabel="Zona Leste" itemValue="Zona Leste"/>
+                        <f:selectItem itemLabel="Zona Oeste" itemValue="Zona Oeste"/>
+                        <f:selectItem itemLabel="Centro" itemValue="Centro"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="M&sup2;" />
+                    <p:inputText value="#{empreendimentoMB.empreendimento.metragem}"/>
+                    <h:outputLabel value="Corretor" />
+                    <p:inputText value="#{empreendimentoMB.empreendimento.corretor}"/>
+                    <h:outputLabel value="Construtora" />
+                    <p:inputText value="#{empreendimentoMB.empreendimento.construtora}"/>                
+                    <h:outputLabel value="Vagas" />
+                    <p:inputText value="#{empreendimentoMB.empreendimento.numeroDeVagas}"/>
+                    <h:outputLabel value="Tipo vagas" />
+                    <p:inputText value="#{empreendimentoMB.empreendimento.tipoVagas}"/>
+                    <h:outputLabel value="Observação" />       
+                    <p:inputTextarea value="#{empreendimentoMB.empreendimento.observacao}"/>
+                    <h:commandButton value="Novo" action="#{empreendimentoMB.novo}" >
+                        <f:ajax execute="pnlCadastro" render="pnlCadastro"/>
+                    </h:commandButton>
+                    <h:commandButton value="Salvar" action="#{empreendimentoMB.salvar}">
+                        <f:ajax execute="pnlCadastro" render="pnlCadastro tblEmp messages"/>
+                    </h:commandButton>
+                </h:panelGrid>            
+
+            </p:fieldset>
+            <p:dataTable id="tblEmp" value="#{empreendimentoMB.empreendimentos}" var="emp" 
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="10,20,50" paginator="true">
+                <p:column headerText="Nome" sortBy="#{emp.nome}" filterBy="#{emp.nome}">
+                    <h:outputText value="#{emp.nome}"/>
+                </p:column>
+                <p:column headerText="Endereço" sortBy="#{emp.endereco}">
+                    <h:outputText value="#{emp.endereco}"/>
+                </p:column>
+                <p:column headerText="Zona" sortBy="#{emp.zona}" filterBy="#{emp.zona}">
+                    <h:outputText value="#{emp.zona}"/>
+                </p:column>
+                <p:column headerText="Preço" sortBy="#{emp.preco}">
+                    <h:outputText value="#{emp.preco}"/>
+                </p:column>
+                <p:column headerText="M&sup2;" sortBy="#{emp.metragem}">
+                    <h:outputText value="#{emp.metragem}"/>
+                </p:column>
+                <p:column headerText="Corretor" sortBy="#{emp.corretor}">
+                    <h:outputText value="#{emp.corretor}"/>
+                </p:column>
+                <p:column headerText="Construtora" sortBy="#{emp.construtora}">
+                    <h:outputText value="#{emp.construtora}"/>
+                </p:column>
+                <p:column headerText="Custo/M&sup2;" sortBy="#{emp.custoMetroQuadrado}">
+                    <h:outputText value="#{emp.custoMetroQuadrado}"/>
+                </p:column>
+                <p:column headerText="Vagas" sortBy="#{emp.numeroDeVagas}">
+                    <h:outputText value="#{emp.numeroDeVagas}"/>
+                </p:column>
+                <p:column headerText="Tipo vagas" sortBy="#{emp.tipoVagas}">
+                    <h:outputText value="#{emp.tipoVagas}"/>
+                </p:column>
+                <p:column headerText="Observação" sortBy="#{emp.observacao}">
+                    <h:outputText value="#{emp.observacao}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
     </h:body>
 </html>
 

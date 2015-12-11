@@ -3,3 +3,14 @@
     Author     : Wellington
 */
 
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    font: 12px Helvetica,Arial,Sans-serif;
+}
+form{
+    padding: 20px;
+}
+
