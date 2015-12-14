@@ -5,6 +5,7 @@ import br.com.tomvieira.aparts.ejb.EmpreendimentoManager;
 import br.com.tomvieira.aparts.ejb.JsfUtil;
 import br.com.tomvieira.aparts.model.Empreendimento;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -28,6 +29,7 @@ public class EmpreendimentoMB implements Serializable {
     private EmpreendimentoManager empreendimentoManager;
 
     private Empreendimento empreendimento;
+    private String[] tipoDeVagas;
 
     @PostConstruct
     private void init() {
@@ -41,7 +43,8 @@ public class EmpreendimentoMB implements Serializable {
 
     public String salvar() {
         try {
-            validar();
+            validar();            
+            empreendimento.setTipoVagas(String.join(",",tipoDeVagas));
             empreendimentoManager.salvar(empreendimento);
             JsfUtil.addSuccessMessage("Empreendimento salvo com sucesso");
             novo();
@@ -49,6 +52,23 @@ public class EmpreendimentoMB implements Serializable {
         } catch (Exception ex) {
             JsfUtil.addErrorMessage("Erro ao salvar empreendimento");
         }
+        return null;
+    }
+    
+    public String excluir (){
+          try {            
+            empreendimentoManager.excluir(empreendimento);
+            JsfUtil.addSuccessMessage("Empreendimento excluído com sucesso");
+            novo();
+            atualizaLista();
+        } catch (Exception ex) {            
+            JsfUtil.addErrorMessage(ex,"Erro ao excluir empreendimento");
+        }
+        return null;
+    }
+    
+    public String editar(){
+        tipoDeVagas =  empreendimento.getTipoVagas().split(",");
         return null;
     }
     
@@ -62,13 +82,14 @@ public class EmpreendimentoMB implements Serializable {
         if (StringUtils.isBlank(empreendimento.getZona())){
             throw  new BusinessException("Informe a zona.");
         }
-        if (StringUtils.isBlank(empreendimento.getTipoVagas())){
+        if (tipoDeVagas.length == 0){
             throw  new BusinessException("Informe o tipo das vagas.");
         }
     }
 
     public void novo (){
         empreendimento = new Empreendimento();
+        tipoDeVagas = null;
     }
 
     public Empreendimento getEmpreendimento() {
@@ -82,5 +103,13 @@ public class EmpreendimentoMB implements Serializable {
     private void atualizaLista() {
         empreendimentos = empreendimentoManager.getAll();
     }
-        
+
+    public String[] getTipoDeVagas() {
+        return tipoDeVagas;
+    }
+
+    public void setTipoDeVagas(String[] tipoDeVagas) {
+        this.tipoDeVagas = tipoDeVagas;
+    }
+                   
 }
