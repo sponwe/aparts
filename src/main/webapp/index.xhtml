@@ -56,6 +56,7 @@
                                      process="pnlCadastro" update="pnlCadastro tblEmp messages"/>
                 </h:panelGrid>            
             </p:fieldset>
+            <p:spacer height="10"/>
             <p:dataTable id="tblEmp" value="#{empreendimentoMB.empreendimentos}" var="emp" 
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="10,20,50" paginator="true" scrollable="true" resizableColumns="true" >
@@ -69,7 +70,9 @@
                     <h:outputText value="#{emp.zona}"/>
                 </p:column>
                 <p:column headerText="Preço" sortBy="#{emp.preco}">
-                    <h:outputText value="#{emp.preco}"/>
+                    <h:outputText value="#{emp.preco}">
+                        <f:convertNumber currencySymbol="R$" locale="pt_BR" type="currency"/>
+                    </h:outputText>
                 </p:column>
                 <p:column headerText="M&sup2;" sortBy="#{emp.metragem}">
                     <h:outputText value="#{emp.metragem}"/>
@@ -81,7 +84,9 @@
                     <h:outputText value="#{emp.construtora}"/>
                 </p:column>
                 <p:column headerText="Custo/M&sup2;" sortBy="#{emp.custoMetroQuadrado}">
-                    <h:outputText value="#{emp.custoMetroQuadrado}"/>
+                    <h:outputText value="#{emp.custoMetroQuadrado}">
+                        <f:convertNumber currencySymbol="R$" locale="pt_BR" type="currency"/>
+                    </h:outputText>
                 </p:column>
                 <p:column headerText="Vagas" sortBy="#{emp.numeroDeVagas}">
                     <h:outputText value="#{emp.numeroDeVagas}"/>

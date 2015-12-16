@@ -9,16 +9,17 @@
         <link href="resources/styles.css" rel="stylesheet" type="text/css"/>
     </h:head>
     <h:body>
-        <h:form id="frm">
-            <h:messages id="messages"/>
+        <h:form id="frm" prependId="false">
+            <h:messages id="messages" showDetail="true" showSummary="true"/>
             <p:fieldset legend="Cadastro de empreendimento">
                 <h:panelGrid columns="2" id="pnlCadastro">
                     <h:outputLabel value="Nome:" />     
-                    <p:inputText value="#{empreendimentoMB.empreendimento.nome}"/>
+                    <p:inputText value="#{empreendimentoMB.empreendimento.nome}" styleClass="texto"/>
                     <h:outputLabel value="Endereço" />
-                    <p:inputText value="#{empreendimentoMB.empreendimento.endereco}"/>
+                    <p:inputText value="#{empreendimentoMB.empreendimento.endereco}" styleClass="texto"/>
                     <h:outputLabel value="Preço:" />
-                    <p:inputText value="#{empreendimentoMB.empreendimento.preco}"/>
+                    <p:inputText value="#{empreendimentoMB.empreendimento.preco}">                        
+                    </p:inputText>
                     <h:outputLabel value="Zona" />
                     <h:selectOneMenu value="#{empreendimentoMB.empreendimento.zona}">
                         <f:selectItem itemLabel="Selecione" itemValue=""/>
@@ -31,28 +32,35 @@
                     <h:outputLabel value="M&sup2;" />
                     <p:inputText value="#{empreendimentoMB.empreendimento.metragem}"/>
                     <h:outputLabel value="Corretor" />
-                    <p:inputText value="#{empreendimentoMB.empreendimento.corretor}"/>
+                    <p:inputText value="#{empreendimentoMB.empreendimento.corretor}" styleClass="texto" />
                     <h:outputLabel value="Construtora" />
-                    <p:inputText value="#{empreendimentoMB.empreendimento.construtora}"/>                
+                    <p:inputText value="#{empreendimentoMB.empreendimento.construtora}" styleClass="texto"/>                
                     <h:outputLabel value="Vagas" />
-                    <p:inputText value="#{empreendimentoMB.empreendimento.numeroDeVagas}"/>
+                    <p:spinner min="0" max="10" value="#{empreendimentoMB.empreendimento.numeroDeVagas}"/>                    
                     <h:outputLabel value="Tipo vagas" />
-                    <p:inputText value="#{empreendimentoMB.empreendimento.tipoVagas}"/>
+                    <h:selectManyCheckbox value="#{empreendimentoMB.tipoDeVagas}">                        
+                        <f:selectItem itemLabel="Presas" itemValue="Presas"/>
+                        <f:selectItem itemLabel="Livres" itemValue="Livres"/>
+                        <f:selectItem itemLabel="Descobertas" itemValue="Descobertas"/>
+                        <f:selectItem itemLabel="Cobertas" itemValue="Cobertas"/>
+                        <f:selectItem itemLabel="Fixas" itemValue="Fixas"/>
+                        <f:selectItem itemLabel="Rotativas" itemValue="Rotativas"/>
+                        <f:selectItem itemLabel="Demarcadas" itemValue="Demarcadas"/>
+                        <f:selectItem itemLabel="Sorteio" itemValue="Sorteio"/>
+                    </h:selectManyCheckbox >                    
                     <h:outputLabel value="Observação" />       
-                    <p:inputTextarea value="#{empreendimentoMB.empreendimento.observacao}"/>
-                    <h:commandButton value="Novo" action="#{empreendimentoMB.novo}" >
-                        <f:ajax execute="pnlCadastro" render="pnlCadastro"/>
-                    </h:commandButton>
-                    <h:commandButton value="Salvar" action="#{empreendimentoMB.salvar}">
-                        <f:ajax execute="pnlCadastro" render="pnlCadastro tblEmp messages"/>
-                    </h:commandButton>
+                    <p:inputTextarea value="#{empreendimentoMB.empreendimento.observacao}" styleClass="texto"/>
+                    <p:commandButton value="Novo" action="#{empreendimentoMB.novo}" 
+                                     update="pnlCadastro" process="pnlCadastro"/>
+                    <p:commandButton value="Salvar" action="#{empreendimentoMB.salvar}" 
+                                     process="pnlCadastro" update="pnlCadastro tblEmp messages"/>
                 </h:panelGrid>            
-
             </p:fieldset>
+            <p:spacer height="10"/>
             <p:dataTable id="tblEmp" value="#{empreendimentoMB.empreendimentos}" var="emp" 
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="10,20,50" paginator="true">
-                <p:column headerText="Nome" sortBy="#{emp.nome}" filterBy="#{emp.nome}">
+                         rowsPerPageTemplate="10,20,50" paginator="true" scrollable="true" resizableColumns="true" >
+                <p:column headerText="Nome" sortBy="#{emp.nome}" filterBy="#{emp.nome}" >
                     <h:outputText value="#{emp.nome}"/>
                 </p:column>
                 <p:column headerText="Endereço" sortBy="#{emp.endereco}">
@@ -62,7 +70,9 @@
                     <h:outputText value="#{emp.zona}"/>
                 </p:column>
                 <p:column headerText="Preço" sortBy="#{emp.preco}">
-                    <h:outputText value="#{emp.preco}"/>
+                    <h:outputText value="#{emp.preco}">
+                        <f:convertNumber currencySymbol="R$" locale="pt_BR" type="currency"/>
+                    </h:outputText>
                 </p:column>
                 <p:column headerText="M&sup2;" sortBy="#{emp.metragem}">
                     <h:outputText value="#{emp.metragem}"/>
@@ -74,7 +84,9 @@
                     <h:outputText value="#{emp.construtora}"/>
                 </p:column>
                 <p:column headerText="Custo/M&sup2;" sortBy="#{emp.custoMetroQuadrado}">
-                    <h:outputText value="#{emp.custoMetroQuadrado}"/>
+                    <h:outputText value="#{emp.custoMetroQuadrado}">
+                        <f:convertNumber currencySymbol="R$" locale="pt_BR" type="currency"/>
+                    </h:outputText>
                 </p:column>
                 <p:column headerText="Vagas" sortBy="#{emp.numeroDeVagas}">
                     <h:outputText value="#{emp.numeroDeVagas}"/>
@@ -84,6 +96,16 @@
                 </p:column>
                 <p:column headerText="Observação" sortBy="#{emp.observacao}">
                     <h:outputText value="#{emp.observacao}"/>
+                </p:column>
+                <p:column headerText="Ações">
+                    <p:commandButton icon="ui-icon-pencil" title="Editar" process="@this" update=":frm:pnlCadastro"
+                                     action="#{empreendimentoMB.editar}">
+                        <f:setPropertyActionListener target="#{empreendimentoMB.empreendimento}" value="#{emp}" />
+                    </p:commandButton>
+                    <p:commandButton icon="ui-icon-trash" actionListener="#{empreendimentoMB.excluir}"
+                                     process="@this" update="@form">
+                        <f:setPropertyActionListener target="#{empreendimentoMB.empreendimento}" value="#{emp}" />
+                    </p:commandButton>
                 </p:column>
             </p:dataTable>
         </h:form>

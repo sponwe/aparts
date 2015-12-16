@@ -8,7 +8,8 @@
     margin: 0;
 }
 body{
-    font: 12px Helvetica,Arial,Sans-serif;
+    font: 10px Helvetica,Arial,Sans-serif;
+    background-color: #a4aba4;
 }
 form{
     padding: 20px;
